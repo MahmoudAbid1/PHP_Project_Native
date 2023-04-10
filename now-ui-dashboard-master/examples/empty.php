@@ -14,6 +14,21 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->
+
+<?php 
+include('../../Model/User.php');
+$user=new CrudUser();
+$liste=$user->Display_users();
+if(isset($_POST['submit']))
+{
+  CrudUser::Delete($_POST['id']);
+  header('Location: empty.php');
+}
+if(isset($_POST['search']))
+{
+  $liste=$user->searchByUsername($_POST['searchName']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +46,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Files -->
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="swiper-bundle.min.css">
+  <link rel="stylesheet" href="CardStyle.css">
   <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
@@ -105,7 +122,7 @@
     </div>
     <div class="main-panel" id="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+       <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <div class="navbar-toggle">
@@ -167,38 +184,13 @@
           </div>
         </div>
       </nav>
-      <!-- End Navbar -->
       <div class="panel-header panel-header-sm">
-      </div>
-      <div class="content">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-           
-              <div class="card-body">
-              <div class="card" style="width: 18rem;">
-                  <img src="wicked.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                  </ul>
-                  <div class="card-body">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer">
+      </div> 
+      <!-- End Navbar -->       
+        
+   
+      
+        <footer class="footer">
         <div class=" container-fluid ">
           <nav>
             <ul>
@@ -219,11 +211,43 @@
               </li>
             </ul>
           </nav>
-          
         </div>
-      </footer>
+        
+      </footer>  
     </div>
   </div>
+  </div>
+  
+  <div class="slide_container swiper" >
+           <div class="slide_content">
+           <form method="post">
+    
+    <div>
+    <input type="text" name="searchName" id="">
+    <button type="submit" name="search" >search</button>
+    </div>
+</form>
+              <div class="card_wapper swiper-wrapper" ><?php foreach($liste as $row){?>
+                
+                  <div class="card swiper-slide">
+                       <div class="image_content">
+                         <form method="post"> <span class="overlay"> <input type="text" hidden name="id" value=<?php echo $row['id'];?>><button type="submit" name="submit"> delete</button></span></form>
+                          <div class="card_image">
+                            <img src="../../Photos/<?php echo $row ["Photo"];?>"alt="" class="card-img">           
+                          </div>
+                        </div>
+                    <div class="card-content">
+                        <h2 class="name"><?php echo $row ["username"];?></h2>
+                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam rem praesentium perspiciatis dolorem molestias sapiente eveniet. Ipsa vero rerum veritatis. Alias quaerat iste dolor minus impedit distinctio est itaque ratione.</p>
+                        <button class="button">View More</button>
+                    </div>   
+                </div > <?php }?>
+              </div >
+            </div>
+             <div class="swiper-button-next swiper-navBtn"></div>
+             <div class="swiper-button-prev swiper-navBtn"></div>
+             <div class="swiper-pagination"></div>
+        </div>
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -240,4 +264,9 @@
   <script src="../assets/demo/demo.js"></script>
 </body>
 
+
+<script src="swiper-bundle.min.js"></script>
+<script src="script.js"></script>
+
+</script>
 </html>

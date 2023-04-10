@@ -1,24 +1,16 @@
 <!--
-
 =========================================================
 * Now UI Dashboard - v1.5.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/now-ui-dashboard
 * Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
 * Designed by www.invisionapp.com Coded by www.creative-tim.com
-
 =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 -->
 <?php 
-
-  session_start();
-
-
+include('../../Core/ConfigGoogle.php');
+include('../../Model/AddUserGoogle.php');
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +22,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Now UI Dashboard by Creative Tim <?php echo($param1); ?>
+    Now UI Dashboard by Creative Tim 
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -39,10 +31,26 @@
   <!-- CSS Files -->
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-</head>
 
+</head>
+<?php 
+$usergoogleEmail="";
+if (isset($_GET['code'])) {
+  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+  if(isset($token)){
+   $client->setAccessToken($token['access_token']);
+   $google_oauth = new Google_Service_Oauth2($client);
+   $google_account_info = $google_oauth->userinfo->get();
+   $usergoogleEmail=$google_account_info['email'];
+   $usergoogleGendre=$google_account_info['gendre'];
+   $usergoogle=new UserGoogle('',$usergoogleEmail,$usergoogleGendre,$google_account_info['familyName'],$google_account_info['givenName'],$google_account_info['name'], $google_account_info['picture'],$google_account_info['verifiedEmail'],$google_account_info['id']);
+   $userController=new CrudUserGoogle();
+   $userController->insert($usergoogle);
+   print_r($google_account_info);
+  }
+} 
+?> 
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="orange">
@@ -54,7 +62,7 @@
           CT
         </a>
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          Creative Tim 
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -62,19 +70,20 @@
           <li class="active ">
             <a href="./dashboard.html">
               <i class="now-ui-icons design_app"></i>
-              <p><?php echo($_SESSION['userEmail'])?></p>
+              <p>Dashboard</p>
             </a>
           </li>
           <li>
-            <a href="../../Update_password.php">
+            <a >
+
               <i class="now-ui-icons education_atom"></i>
-              <p><?php echo($email);?></p>
+              <p><?php if(isset($usergoogleEmail)){echo($usergoogleEmail);} ?></p>
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a id="open_popup" href="../../Update_password.php" >
               <i class="now-ui-icons location_map-big"></i>
-              <p>Maps</p>
+              <p>UpdatePassword</p>
             </a>
           </li>
           <li>
@@ -166,7 +175,7 @@
                 <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
-                    <span class="d-lg-none d-md-block">Account</span>
+                    <span class="d-lg-none d-md-block"></span>
                   </p>
                 </a>
               </li>
@@ -183,7 +192,7 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Global Sales</h5>
+                <h5 class="card-category"></h5>
                 <h4 class="card-title">Shipped Products</h4>
                 <div class="dropdown">
                   <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
@@ -491,6 +500,9 @@
 
     });
   </script>
+
+
+
 </body>
 
 </html>
