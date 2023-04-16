@@ -87,7 +87,16 @@ input {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+	
 }
+input:focus {
+	outline: none !important;
+	border: 0;
+  }
+  .form-container input:focus {
+	outline: none;
+	border: none;
+  }
 
 .container {
 	background-color: #fff;

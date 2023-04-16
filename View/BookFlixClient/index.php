@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('../../Core/ConfigGoogle.php');
 include('../../Model/AddUserGoogle.php');
 
@@ -20,37 +20,42 @@ include('../../Model/AddUserGoogle.php');
     <title>Multipurpose</title>
     <!-- Stylesheets & Fonts -->
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700" rel="stylesheet">
     <!-- Plugins Stylesheets -->
     <link rel="stylesheet" href="assets/css/loader/loaders.css">
     <link rel="stylesheet" href="assets/css/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/aos/aos.css">
     <link rel="stylesheet" href="assets/css/swiper/swiper.css">
+
     <link rel="stylesheet" href="assets/css/lightgallery.min.css">
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Responsive Stylesheet -->
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <style>
+
+    </style>
 </head>
-<?php 
-$usergoogleEmail="";
+
+<?php
+$usergoogleEmail = "";
 if (isset($_GET['code'])) {
-  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-  if(isset($token)){
-   $client->setAccessToken($token['access_token']);
-   $google_oauth = new Google_Service_Oauth2($client);
-   $google_account_info = $google_oauth->userinfo->get();
-   $usergoogleEmail=$google_account_info['email'];
-   $usergoogleGendre=$google_account_info['gendre'];
-   $usergoogle=new UserGoogle('',$usergoogleEmail,$usergoogleGendre,$google_account_info['familyName'],$google_account_info['givenName'],$google_account_info['name'], $google_account_info['picture'],$google_account_info['verifiedEmail'],$google_account_info['id']);
-   $userController=new CrudUserGoogle();
-   $userController->insert($usergoogle);
-   //print_r($google_account_info);
-  }
-} 
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    if (isset($token)) {
+        $client->setAccessToken($token['access_token']);
+        $google_oauth = new Google_Service_Oauth2($client);
+        $google_account_info = $google_oauth->userinfo->get();
+        $usergoogleEmail = $google_account_info['email'];
+        $usergoogleGendre = $google_account_info['gendre'];
+        $usergoogle = new UserGoogle('', $usergoogleEmail, $usergoogleGendre, $google_account_info['familyName'], $google_account_info['givenName'], $google_account_info['name'], $google_account_info['picture'], $google_account_info['verifiedEmail'], $google_account_info['id']);
+        $userController = new CrudUserGoogle();
+        $userController->insert($usergoogle);
+        //print_r($google_account_info);
+    }
+}
 ?>
+
 <body>
     <!-- Loader Start -->
     <div class="css-loader">
@@ -58,16 +63,16 @@ if (isset($_GET['code'])) {
     </div>
     <!-- Loader End -->
     <!-- Header Start -->
-    
+
     <header class="position-absolute w-100">
-        
+
         <div class="container">
-            
+
             <div class="top-header d-none d-sm-flex justify-content-between align-items-center">
                 <div class="contact">
                     <a href="tel:+1234567890" class="tel"><i class="fa fa-phone" aria-hidden="true"></i>+1234567890</a>
-                    <a href="mailto:info@yourmail.com"><i class="fa fa-envelope"
-                            aria-hidden="true"></i>thebrogramers@gmail.com<?php //if(isset($usergoogleEmail)){echo($usergoogleEmail);} ?></a>
+                    <a href="mailto:info@yourmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>thebrogramers@gmail.com<?php //if(isset($usergoogleEmail)){echo($usergoogleEmail);} 
+                                                                                                                                ?></a>
                 </div>
                 <nav class="d-flex aic">
                     <a href="#" class="login"><i class="fa fa-user" aria-hidden="true"></i>Login</a>
@@ -81,37 +86,82 @@ if (isset($_GET['code'])) {
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="index.html"><img src="assets/images/LOGO4.png" alt="Multipurpose"></a>
                 <div class="group d-flex align-items-center">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation"><span
-                            class="navbar-toggler-icon"></span></button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <a class="login-icon d-sm-none" href="#"><i class="fa fa-user"></i></a>
                     <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                    
+
                 </div>
-                <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                        <!-- Condition of Connection is nesseary -->
-                        <li class="nav-item"><a class="nav-link" href="#">Wish list</a></li>
-                        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contactus.html">Contact Us</a></li>
-                    </ul>
-                    <form class="bg-white search-form" method="get" id="searchform">
-                        <div class="input-group">
-                            <input class="field form-control" id="s" name="s" type="text" placeholder="Search">
-                            <span class="input-group-btn">
-                                <input class="submit btn btn-primary" id="searchsubmit" name="submit" type="submit"
-                                    value="Search">
-                            </span>
+                <style>
+                    .modal-backdrop {
+                        display: none;
+                    }
+                </style>
+                <div class="group d-flex align-items-center mx-2 px-4">
+                    <a class="exclamtion d-none d-md-block" href="#myModal" data-toggle="modal"><i class="fa fa-exclamation"></i></a>
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <<div class="modal-header">
+                                    <h5 class="modal-title justify-content-center align-center text-center text-danger">Reclamation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                    </button>
+                                    <span id="close-modal" class="close" data-dismiss="modal" style="cursor:pointer;float:right;">&times;</span>
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#close-modal').click(function() {
+                                        $('#myModal').modal('hide');
+                                    });
+                                });
+                            </script>
+                            <form method="post">
+                                <div class="modal-body">
+
+                                    <label for="dropdown-menu " class="justify-content-center align-center text-center text-danger">Enter your Reclamation Topic please:</label>
+                                    <select class="form-select-sm w-100 border-0" style="color:black; border:none; outline:none;" id="dropdown-menu" name="reclamationTopic">
+                                        <option value="User Management">User Management</option>
+                                        <option value="Livraison Management">Livraison Management</option>
+                                        <option value="Product Management">Product Management</option>
+                                        <option value="Event Management">Event Management</option>
+                                        <option value="Promotion Management">Promotion Management</option>
+                                    </select>
+                                    <textarea class="field form-control mt-2" style="color:black; border:none; outline:none;" id="s" name="reclamationDescription" type="text" placeholder="Can you Provide us with more informations about your probleme pelase ..."></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Send Reclamation</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </nav>
-        
+        </div>
+
+        <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                <!-- Condition of Connection is nesseary -->
+                <li class="nav-item"><a class="nav-link" href="#">Wish list</a></li>
+                <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="contactus.html">Contact Us</a></li>
+            </ul>
+
+            <form class="bg-white search-form" method="get" id="searchform">
+                <div class="input-group">
+                    <input class="field form-control" id="s" name="s" type="text" placeholder="Search">
+                    <span class="input-group-btn">
+                        <input class="submit btn btn-primary" id="searchsubmit" name="submit" type="submit" value="Search">
+                    </span>
+                </div>
+            </form>
+        </div>
+
+        </nav>
+
         </div>
     </header>
 
@@ -293,8 +343,7 @@ if (isset($_GET['code'])) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-right"
-                        data-aos-duration="800">
+                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-right" data-aos-duration="800">
                         <div class="post-content text-sm-right">
                             <time datetime="2019-04-06T13:53">15 Oct, 2019</time>
                             <h3><a href="#">Proudly for us to build stylish</a></h3>
@@ -320,8 +369,7 @@ if (isset($_GET['code'])) {
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-right" data-aos-delay="200"
-                        data-aos-duration="800">
+                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
                         <div class="post-content text-sm-right">
                             <time datetime="2019-04-06T13:53">15 Oct, 2019</time>
                             <h3><a href="#">Add apples to the grocery list</a></h3>
@@ -334,8 +382,7 @@ if (isset($_GET['code'])) {
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-left" data-aos-delay="200"
-                        data-aos-duration="800">
+                    <div class="single-rpost d-sm-flex align-items-center" data-aos="fade-left" data-aos-delay="200" data-aos-duration="800">
                         <div class="post-thumb">
                             <img class="img-fluid" src="assets/images/post4.png" alt="Post 1">
                         </div>
@@ -376,18 +423,15 @@ if (isset($_GET['code'])) {
                 </div>
                 <div class="col-xl-5 gallery">
                     <div class="row no-gutters h-100" id="lightgallery">
-                        <a href="https://lorempixel.com/600/400/" class="w-50 h-100 gal-img" data-aos="fade-up"
-                            data-aos-delay="200" data-aos-duration="400">
+                        <a href="https://lorempixel.com/600/400/" class="w-50 h-100 gal-img" data-aos="fade-up" data-aos-delay="200" data-aos-duration="400">
                             <img class="img-fluid" src="assets/images/gallery1.png" alt="Gallery Image">
                             <i class="fa fa-caret-right"></i>
                         </a>
-                        <a href="https://lorempixel.com/600/400/" class="w-50 h-50 gal-img" data-aos="fade-up"
-                            data-aos-delay="400" data-aos-duration="600">
+                        <a href="https://lorempixel.com/600/400/" class="w-50 h-50 gal-img" data-aos="fade-up" data-aos-delay="400" data-aos-duration="600">
                             <img class="img-fluid" src="assets/images/gallery2.png" alt="Gallery Image">
                             <i class="fa fa-caret-right"></i>
                         </a>
-                        <a href="https://lorempixel.com/600/400/" class="w-50 h-50 gal-img gal-img3" data-aos="fade-up"
-                            data-aos-delay="0" data-aos-duration="600">
+                        <a href="https://lorempixel.com/600/400/" class="w-50 h-50 gal-img gal-img3" data-aos="fade-up" data-aos-delay="0" data-aos-duration="600">
                             <img class="img-fluid" src="assets/images/gallery3.png" alt="Gallery Image">
                             <i class="fa fa-caret-right"></i>
                         </a>
@@ -406,8 +450,7 @@ if (isset($_GET['code'])) {
             </div>
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="0"
-                        data-aos-duration="600">
+                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="0" data-aos-duration="600">
                         <span>Monthly</span>
                         <h2>Starter</h2>
                         <p class="desc">Here goes some description</p>
@@ -415,14 +458,12 @@ if (isset($_GET['code'])) {
                         <p>Create excepteur sint occaecat cupidatat non proident</p>
                         <a href="#" class="btn btn-primary">Buy Now</a>
                         <svg viewBox="0 0 170 193">
-                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)"
-                                d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
+                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)" d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
                         </svg>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="300"
-                        data-aos-duration="600">
+                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="300" data-aos-duration="600">
                         <span>Monthly</span>
                         <h2>Starter</h2>
                         <p class="desc">Here goes some description</p>
@@ -433,14 +474,12 @@ if (isset($_GET['code'])) {
                         <p>100 Email Account</p>
                         <a href="#" class="btn btn-primary">Buy Now</a>
                         <svg viewBox="0 0 170 193">
-                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)"
-                                d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
+                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)" d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
                         </svg>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="600"
-                        data-aos-duration="600">
+                    <div class="single-pricing text-center" data-aos="fade-up" data-aos-delay="600" data-aos-duration="600">
                         <span>Monthly</span>
                         <h2>Starter</h2>
                         <p class="desc">Here goes some description</p>
@@ -448,8 +487,7 @@ if (isset($_GET['code'])) {
                         <p>Create excepteur sint occaecat cupidatat non proident</p>
                         <a href="#" class="btn btn-primary">Buy Now</a>
                         <svg viewBox="0 0 170 193">
-                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)"
-                                d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
+                            <path fill-rule="evenodd" fill="rgb(238, 21, 21)" d="M39.000,31.999 C39.000,31.999 -21.000,86.500 9.000,121.999 C39.000,157.500 91.000,128.500 104.000,160.999 C117.000,193.500 141.000,201.000 150.000,183.000 C159.000,165.000 172.000,99.000 167.000,87.000 C162.000,75.000 170.000,63.000 152.000,45.000 C134.000,27.000 128.000,15.999 116.000,11.000 C104.000,6.000 89.000,-0.001 89.000,-0.001 L39.000,31.999 Z" />
                         </svg>
                     </div>
                 </div>
@@ -466,15 +504,11 @@ if (isset($_GET['code'])) {
                         <div class="swiper-slide text-center">
                             <div class="row">
                                 <div class="offset-lg-1 col-lg-10">
-                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img
-                                            src="assets/images/test1.png" alt="Testimonial 1"></div>
-                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"
-                                        data-aos-offset="0">John</h5>
-                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"
-                                        data-aos-offset="0">UI/UX
+                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img src="assets/images/test1.png" alt="Testimonial 1"></div>
+                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600" data-aos-offset="0">John</h5>
+                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600" data-aos-offset="0">UI/UX
                                         Designer</span>
-                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600"
-                                        data-aos-offset="0">Ash's tactics &
+                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600" data-aos-offset="0">Ash's tactics &
                                         books have helped me a lot in my understanding on how social
                                         media
                                         advertising works.I can say that he is one of the best development professionals
@@ -488,15 +522,11 @@ if (isset($_GET['code'])) {
                         <div class="swiper-slide text-center">
                             <div class="row">
                                 <div class="offset-lg-1 col-lg-10">
-                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img
-                                            src="assets/images/test1.png" alt="Testimonial 1"></div>
-                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"
-                                        data-aos-offset="0">John</h5>
-                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"
-                                        data-aos-offset="0">UI/UX
+                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img src="assets/images/test1.png" alt="Testimonial 1"></div>
+                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600" data-aos-offset="0">John</h5>
+                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600" data-aos-offset="0">UI/UX
                                         Designer</span>
-                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600"
-                                        data-aos-offset="0">Ash's tactics &
+                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600" data-aos-offset="0">Ash's tactics &
                                         books have helped me a lot in my understanding on how social
                                         media
                                         advertising works.I can say that he is one of the best development professionals
@@ -510,15 +540,11 @@ if (isset($_GET['code'])) {
                         <div class="swiper-slide text-center">
                             <div class="row">
                                 <div class="offset-lg-1 col-lg-10">
-                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img
-                                            src="assets/images/test1.png" alt="Testimonial 1"></div>
-                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600"
-                                        data-aos-offset="0">John</h5>
-                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600"
-                                        data-aos-offset="0">UI/UX
+                                    <div class="test-img" data-aos="fade-up" data-aos-delay="0" data-aos-offset="0"><img src="assets/images/test1.png" alt="Testimonial 1"></div>
+                                    <h5 data-aos="fade-up" data-aos-delay="200" data-aos-duration="600" data-aos-offset="0">John</h5>
+                                    <span data-aos="fade-up" data-aos-delay="400" data-aos-duration="600" data-aos-offset="0">UI/UX
                                         Designer</span>
-                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600"
-                                        data-aos-offset="0">Ash's tactics &
+                                    <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600" data-aos-offset="0">Ash's tactics &
                                         books have helped me a lot in my understanding on how social
                                         media
                                         advertising works.I can say that he is one of the best development professionals
@@ -654,32 +680,28 @@ if (isset($_GET['code'])) {
                         <div class="single-widget recent-post-widget" data-aos="fade-up" data-aos-delay="400">
                             <h6 class="widget-tiltle">Latest Updates</h6>
                             <div class="media">
-                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post1.png"
-                                        alt="Recent Post"></a>
+                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post1.png" alt="Recent Post"></a>
                                 <div class="media-body ml-3">
                                     <h6><a href="#">An engaging</a></h6>
                                     <p><i class="fa fa-user"></i>Mano <i class="fa fa-eye"></i> 202 Views</p>
                                 </div>
                             </div>
                             <div class="media">
-                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post2.png"
-                                        alt="Recent Post"></a>
+                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post2.png" alt="Recent Post"></a>
                                 <div class="media-body ml-3">
                                     <h6><a href="#">Statistics and analysis. The key to succes.</a></h6>
                                     <p><i class="fa fa-user"></i>Rosias <i class="fa fa-eye"></i> 20 Views</p>
                                 </div>
                             </div>
                             <div class="media">
-                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post3.png"
-                                        alt="Recent Post"></a>
+                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post3.png" alt="Recent Post"></a>
                                 <div class="media-body ml-3">
                                     <h6><a href="#">Envato Meeting turns into a photoshooting.</a></h6>
                                     <p><i class="fa fa-user"></i>Kien <i class="fa fa-eye"></i> 74 Views</p>
                                 </div>
                             </div>
                             <div class="media">
-                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post4.png"
-                                        alt="Recent Post"></a>
+                                <a class="rcnt-img" href="#"><img src="assets/images/rcnt-post4.png" alt="Recent Post"></a>
                                 <div class="media-body ml-3">
                                     <h6><a href="#">An engaging embedded the video posts</a></h6>
                                     <p><i class="fa fa-user"></i>Robert <i class="fa fa-eye"></i> 48 Views</p>
@@ -702,8 +724,7 @@ if (isset($_GET['code'])) {
                             <p>Sign up for our mailing list to get latest updates and offers</p>
                             <form class="" method="get">
                                 <div class="input-group">
-                                    <input class="field form-control" name="subscribe" type="email"
-                                        placeholder="Email Address">
+                                    <input class="field form-control" name="subscribe" type="email" placeholder="Email Address">
                                     <span class="input-group-btn">
                                         <button type="submit" name="submit-mail"><i class="fa fa-check"></i></button>
                                     </span>
@@ -726,11 +747,9 @@ if (isset($_GET['code'])) {
         <!-- Foot Note Start -->
         <div class="foot-note">
             <div class="container">
-                <div
-                    class="footer-content text-center text-lg-left d-lg-flex justify-content-between align-items-center">
+                <div class="footer-content text-center text-lg-left d-lg-flex justify-content-between align-items-center">
                     <p class="mb-0" data-aos="fade-right" data-aos-offset="0">&copy; 2019 All Rights Reserved. Design by <a href="https://freehtml5.co/multipurpose" target="_blank" class="fh5-link">FreeHTML5.co</a>.</p>
-                    <p class="mb-0" data-aos="fade-left" data-aos-offset="0"><a href="#">Terms Of Use</a><a
-                            href="#">Privacy & Security
+                    <p class="mb-0" data-aos="fade-left" data-aos-offset="0"><a href="#">Terms Of Use</a><a href="#">Privacy & Security
                             Statement</a></p>
                 </div>
             </div>
@@ -743,9 +762,9 @@ if (isset($_GET['code'])) {
     <!--Plugins-->
     <script src="assets/js/bootstrap.bundle.js"></script>
     <script src="assets/js/loaders.css.js"></script>
-      <script src="assets/js/aos.js"></script>  
-     <script src="assets/js/swiper.min.js"></script> 
-     <script src="assets/js/lightgallery-all.min.js"></script> 
+    <script src="assets/js/aos.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/lightgallery-all.min.js"></script>
     <!--Template Script-->
     <script src="assets/js/main.js"></script>
 </body>

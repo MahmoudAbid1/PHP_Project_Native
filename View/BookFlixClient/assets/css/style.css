@@ -153,6 +153,10 @@ header::after {
 .cart {
   margin-left: 20px;
 }
+.exclamtion{
+  margin-right: 60px;
+  font-size: 1.5rem;
+}
 
 form input.btn-primary:hover,
 form button.btn-primary:hover {
@@ -937,4 +941,23 @@ span {
 .height-container{
   height: fit-content;
   margin-bottom: 150px;
+}
+#myModal .modal-dialog {
+  -webkit-transform: translate(0,-50%);
+  -o-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+  top: 50%;
+  margin: 0 auto;
+}
+.modal.fade .modal-content {
+  z-index: 9999; /* set a high z-index to keep it on top */
+  position: relative; /* set position to relative to contain the child elements */
+}
+
+.modal-backdrop.show {
+  opacity: 0.5; /* reduce the opacity to make it less visible */
+}
+
+.modal-backdrop.fade.show {
+  opacity: 0.5; /* reduce the opacity to make it less visible */
 }

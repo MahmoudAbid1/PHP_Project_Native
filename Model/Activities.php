@@ -5,7 +5,7 @@ class CrudActivities{
 
     public static function insert($Activitie)
     {
-        $sql = "INSERT INTO activites(id,idAdmin,description,date,picture) 
+        $sql = "INSERT INTO activities(id,idAdmin,description,date,picture) 
         VALUES ('',:idAdmin,:description,:date,:picture)  ";
         $db = config::getConnexion();
         try
@@ -24,7 +24,7 @@ class CrudActivities{
 
     public static function displayActivitiesProfile()
     {
-        $sql="SELECT * FROM activities,admin where activities.idAdmin=admin.id";
+        $sql="SELECT * FROM activities,admin where activities.idAdmin=admin.id ORDER BY activities.id DESC";
         $db=config::getConnexion();
         try{
             $liste = $db->query($sql);

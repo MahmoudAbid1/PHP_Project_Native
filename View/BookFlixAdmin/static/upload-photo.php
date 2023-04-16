@@ -1,5 +1,6 @@
 <?php
 include('../../../Model/Admin.php');
+include('../../../Model/Activities.php');
 session_start();
 if (isset($_FILES['myFile'])) {
     $new_width = $new_height = 200;
@@ -21,6 +22,10 @@ if (isset($_FILES['myFile'])) {
     // Escape special characters in the image data
     //$newadmin=new Admin('','','','','','','','','',$image);
     CrudAdmin::UpdateImageAdmin($_SESSION['idAdmin'],$image);
+    $description="You have updated your Picture ";
+		$currentDateTime = date('Y-m-d H:i:s');
+		$newActivitie=new Activities('',$_SESSION['idAdmin'],$description,$currentDateTime,'');
+		CrudActivities::insert($newActivitie);
     header("location: AdminProfile.php");
 }
 ?>
